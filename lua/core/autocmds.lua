@@ -17,18 +17,6 @@ autocmd('TextYankPost', {
   pattern = '*',
 })
 
-autocmd('BufUnload', {
-  buffer = 0,
-  callback = function()
-    vim.opt.laststatus = 3
-  end,
-})
-
-autocmd('BufEnter', {
-  pattern = '*',
-  command = 'set fo-=c fo-=r fo-=o',
-})
-
 vim.api.nvim_create_autocmd('BufReadPost', {
   desc = 'Open file at the last position it was edited earlier',
   callback = function()
