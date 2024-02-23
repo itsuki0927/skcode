@@ -1,3 +1,4 @@
+-- 更多配置可以查看文档: https://yianwillis.github.io/vimcdoc/doc/quickref.html#option-list
 local g = vim.g
 local opt = vim.opt
 
@@ -6,7 +7,20 @@ g.skip_ts_context_commentstring_module = true
 g.mapleader = ' '
 g.skcode_theme = skcode.load_config().ui.theme
 
--- 更多配置可以查看文档: https://yianwillis.github.io/vimcdoc/doc/quickref.html#option-list
+vim.opt.signcolumn = 'yes'
+vim.opt.statuscolumn =
+  "%C%=%4{&nu && v:virtnum <= 0 ? (&rnu ? (v:lnum == line('.') ? v:lnum . ' ' : v:relnum) : v:lnum) : ''}%=%s"
+-- vim.opt.colorcolumn = { 101, 121 } -- Highlight columns
+
+-- 匹配这些模式的文件不会参与自动补全
+opt.wildignore = {
+  '**/node_modules/**',
+  '**/coverage/**',
+  '**/.idea/**',
+  '**/.git/**',
+  '**/.nuxt/**',
+}
+
 opt.backup = false -- 覆盖文件时保留备份文件
 opt.clipboard = 'unnamedplus' -- 允许nvim访问系统剪切板
 opt.cmdheight = 1 -- 命令行高度
@@ -40,17 +54,21 @@ opt.signcolumn = 'yes' -- 始终显示符号列，否则每次都会移动文本
 opt.wrap = false -- 长行回绕并在下一行继续
 opt.scrolloff = 8 -- 光标上下的最少行数
 opt.sidescrolloff = 8
-
+opt.confirm = true -- 询问如何处理未保存 / 只读的文件
 opt.laststatus = 3 -- global statusline
 opt.statusline = "%!v:lua.require('ui.statusline').run()"
-
--- 不可见的字符显示点
-opt.list = true
--- opt.listchars = 'space:⋅'
+vim.opt.list = true
+vim.opt.listchars = {
+  nbsp = '⦸', -- CIRCLED REVERSE SOLIDUS (U+29B8, UTF-8: E2 A6 B8)
+  tab = '  ',
+  extends = '»', -- RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK (U+00BB, UTF-8: C2 BB)
+  precedes = '«', -- LEFT-POINTING DOUBLE ANGLE QUOTATION MARK (U+00AB, UTF-8: C2 AB)
+  trail = '·', -- Dot Operator (U+22C5)
+}
 
 opt.shortmess:append('c')
 
-vim.cmd('set whichwrap+=<,>,[,],h,l')
+vim.opt.whichwrap = vim.opt.whichwrap + 'h,l,<,>,[,]'
 vim.cmd([[set iskeyword+=-]])
 
 vim.schedule(function()
