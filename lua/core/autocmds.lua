@@ -1,9 +1,18 @@
 local autocmd = vim.api.nvim_create_autocmd
 
+-- alpha 禁用 statusline
 autocmd('FileType', {
   pattern = 'alpha',
   callback = function()
     vim.opt.laststatus = 0
+  end,
+})
+
+-- 开启 statusline
+autocmd('BufUnload', {
+  buffer = 0,
+  callback = function()
+    vim.opt.laststatus = 3
   end,
 })
 
