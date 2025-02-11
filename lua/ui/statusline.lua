@@ -61,10 +61,10 @@ M.modes = {
 
 M.mode = function()
   local m = vim.api.nvim_get_mode().mode
-  local current_mode = '%#' .. M.modes[m][2] .. '#' .. '  '
-  -- local mode_sep1 = '%#' .. M.modes[m][2] .. 'Sep' .. '#' .. sep_r
+  local current_mode = '%#' .. M.modes[m][2] .. '#' .. '  ' .. M.modes[m][1]
+  local mode_sep1 = '%#' .. M.modes[m][2] .. 'Sep' .. '#' .. sep_r
 
-  return current_mode .. '%#ST_EmptySpace#' .. sep_r
+  return current_mode .. mode_sep1 .. '%#ST_EmptySpace#' .. sep_r
 end
 
 M.fileInfo = function()
@@ -115,12 +115,12 @@ M.LSP_Diagnostics = function()
   hints = (hints and hints > 0) and ('%#St_lspHints#' .. '󰛩 ' .. hints .. ' ') or ''
   info = (info and info > 0) and ('%#St_lspInfo#' .. '󰋼 ' .. info .. ' ') or ''
 
-  return errors .. warnings .. hints .. info
+  return ' ' .. errors .. warnings .. hints .. info
 end
 
 M.cwd = function()
   local dir_icon = '%#St_cwd_icon#' .. '󰉋 '
-  local dir_name = '%#St_cwd_text#' .. ' ' .. fn.fnamemodify(fn.getcwd(), ':t') .. ' '
+  local dir_name = '%#St_cwd_text#' .. ' ' .. fn.fnamemodify(fn.getcwd(), ':t')
   return (vim.o.columns > 85 and ('%#St_cwd_sep#' .. sep_l .. dir_icon .. dir_name)) or ''
 end
 
@@ -143,15 +143,13 @@ M.run = function()
 
   return table.concat({
     modules.mode(),
-    modules.fileInfo(),
-    ' ',
+    modules.cwd(),
     modules.LSP_Diagnostics(),
 
     '%=',
 
     modules.git(),
     ' ',
-    modules.cwd(),
   })
 end
 

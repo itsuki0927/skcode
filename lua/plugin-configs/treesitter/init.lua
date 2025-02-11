@@ -58,28 +58,44 @@ if present then
         enable = true,
         set_jumps = true,
         goto_next_start = {
-          [']p'] = '@parameter.inner',
-          [']]'] = '@function.outer',
-          [']m'] = '@class.outer',
+          [']a'] = '@parameter.inner',
+
+          [']m'] = '@function.outer',
+          [']p'] = { query = '@class.outer', desc = 'Next class start' },
+          --
+          -- You can use regex matching (i.e. lua pattern) and/or pass a list in a "query" key to group multiple queires.
+          [']o'] = '@loop.*',
         },
         goto_next_end = {
-          ['[]'] = '@function.outer',
-          [']M'] = '@class.outer',
+          [']M'] = '@function.outer',
+          [']['] = '@class.outer',
         },
         goto_previous_start = {
-          ['[p'] = '@parameter.inner',
-          ['[['] = '@function.outer',
-          ['[m'] = '@class.outer',
+          ['[a'] = '@parameter.inner',
+          ['[m'] = '@function.outer',
+          ['[p'] = '@class.outer',
         },
         goto_previous_end = {
-          [']['] = '@function.outer',
-          ['[M'] = '@class.outer',
+          ['[M'] = '@function.outer',
+          ['[]'] = '@class.outer',
+        },
+        goto_next = {
+          [']i'] = '@conditional.outer',
+        },
+        goto_previous = {
+          ['[i'] = '@conditional.outer',
         },
       },
       swap = {
         enable = true,
-        swap_next = swap_next,
-        swap_previous = swap_prev,
+        swap_next = {
+          ['<leader>na'] = '@parameter.inner',
+          ['<leader>nm'] = '@function.outer',
+        },
+        swap_previous = {
+          ['<leader>pa'] = '@parameter.inner',
+          ['<leader>pm'] = '@function.outer',
+        },
       },
     },
   })

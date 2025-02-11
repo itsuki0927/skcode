@@ -7,8 +7,8 @@ g.skip_ts_context_commentstring_module = true
 g.mapleader = ' '
 g.skcode_theme = skcode.load_config().ui.theme
 
-vim.opt.signcolumn = 'yes'
-vim.opt.statuscolumn =
+opt.signcolumn = 'yes'
+opt.statuscolumn =
   "%C%=%4{&nu && v:virtnum <= 0 ? (&rnu ? (v:lnum == line('.') ? v:lnum . ' ' : v:relnum) : v:lnum) : ''}%=%s"
 -- vim.opt.colorcolumn = { 101, 121 } -- Highlight columns
 
@@ -32,7 +32,7 @@ opt.ignorecase = true -- 搜索时忽略大小写
 opt.mouse = 'a' -- 允许使用鼠标点击
 opt.pumheight = 20 -- 决定用于插入模式补全的弹出菜单显示项目的最大数目
 opt.showmode = false -- 不显示当前模式
-opt.showtabline = 2 -- 显示带有标签页标签的行
+opt.showtabline = 0 -- 禁用掉 tabline
 opt.smartcase = true -- 大写的自动转行
 opt.smartindent = true -- 打开智能缩进
 opt.splitbelow = true -- 如果打开，窗口的分割会把新窗口放到当前窗口下边
@@ -57,8 +57,8 @@ opt.sidescrolloff = 8
 opt.confirm = true -- 询问如何处理未保存 / 只读的文件
 opt.laststatus = 3 -- global statusline
 opt.statusline = "%!v:lua.require('ui.statusline').run()"
-vim.opt.list = true
-vim.opt.listchars = {
+opt.list = true
+opt.listchars = {
   nbsp = '⦸', -- CIRCLED REVERSE SOLIDUS (U+29B8, UTF-8: E2 A6 B8)
   tab = '  ',
   extends = '»', -- RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK (U+00BB, UTF-8: C2 BB)
@@ -67,6 +67,14 @@ vim.opt.listchars = {
 }
 
 opt.shortmess:append('c')
+opt.showbreak = '↳ ' -- DOWNWARDS ARROW WITH TIP RIGHTWARDS (U+21B3, UTF-8: E2 86 B3)
+opt.fillchars = {
+  eob = ' ', -- Suppress ~ at EndOfBuffer
+  fold = ' ', -- Hide trailing folding characters
+  diff = '╱',
+  foldopen = '',
+  foldclose = '',
+}
 
 vim.opt.whichwrap = vim.opt.whichwrap + 'h,l,<,>,[,]'
 vim.cmd([[set iskeyword+=-]])

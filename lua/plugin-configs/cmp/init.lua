@@ -53,6 +53,25 @@ if present then
           luasnip = '[Snip]',
         })[entry.source.name]
 
+        local entryItem = entry:get_completion_item()
+        local color = entryItem.documentation
+
+        -- check if color is hexcolor
+        if color and type(color) == 'string' and color:match('^#%x%x%x%x%x%x$') then
+          local hl = 'hex-' .. color:sub(2)
+
+          if #vim.api.nvim_get_hl(0, { name = hl }) == 0 then
+            vim.api.nvim_set_hl(0, hl, { fg = color })
+          end
+
+          vim_item.menu = ' '
+          vim_item.menu_hl_group = hl
+
+          -- else
+          -- add your lspkind icon here!
+          -- item.menu_hl_group = item.kind_hl_group
+        end
+
         return vim_item
       end,
     },

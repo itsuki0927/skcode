@@ -8,7 +8,51 @@ require('lazy').setup({
 
   ------------------------------ UI ----------------------------------
   {
-    'itsuki0927/base46',
+    'FeiyouG/commander.nvim',
+    dependencies = { 'nvim-telescope/telescope.nvim' },
+    keys = {
+      { '<leader>p', '<CMD>Telescope commander<CR>', mode = 'n' },
+      { '<leader>pc', '<CMD>Telescope commander<CR>', mode = 'n' },
+    },
+    config = function()
+      require('commander').setup({
+        components = {
+          'DESC',
+          'KEYS',
+          'CAT',
+        },
+        sort_by = {
+          'DESC',
+          'KEYS',
+          'CAT',
+          'CMD',
+        },
+        integration = {
+          telescope = {
+            enable = true,
+          },
+          lazy = {
+            enable = true,
+            set_plugin_name_as_cat = true,
+          },
+        },
+      })
+    end,
+  },
+
+  {
+    'b0o/incline.nvim',
+    opts = {},
+    -- Optional: Lazy load Incline
+    event = 'VeryLazy',
+    config = function()
+      require('plugin-configs.incline')
+    end,
+  },
+
+  {
+    -- 'itsuki0927/base46',
+    dir = '~/learn/lua/base46',
     config = function()
       local ok, base46 = pcall(require, 'base46')
       if ok then
@@ -28,6 +72,9 @@ require('lazy').setup({
   {
     'nvim-treesitter/nvim-treesitter-textobjects',
     event = 'BufRead',
+    config = function()
+      require('plugin-configs.treesitter-textobjects')
+    end,
   },
   {
     'nvim-treesitter/nvim-treesitter',
@@ -35,17 +82,6 @@ require('lazy').setup({
     build = ':TSUpdate',
     config = function()
       require('plugin-configs.treesitter')
-    end,
-  },
-
-  {
-    'akinsho/bufferline.nvim',
-    event = { 'BufNewFile', 'BufRead', 'TabEnter' },
-    config = function()
-      require('plugin-configs.bufferline')
-    end,
-    init = function()
-      require('core.mappings').bufferline()
     end,
   },
 
@@ -349,33 +385,33 @@ require('lazy').setup({
     end,
   },
 
-  { -- Improve folding
-    'kevinhwang91/nvim-ufo',
-    event = 'VeryLazy',
-    dependencies = {
-      'kevinhwang91/promise-async',
-      {
-        'luukvbaal/statuscol.nvim',
-        config = function()
-          local builtin = require('statuscol.builtin')
-          require('statuscol').setup({
-            relculright = true,
-            segments = {
-              { text = { builtin.foldfunc }, click = 'v:lua.ScFa' },
-              { text = { '%s' }, click = 'v:lua.ScSa' },
-              { text = { builtin.lnumfunc, ' ' }, click = 'v:lua.ScLa' },
-            },
-          })
-        end,
-      },
-    },
-    init = function()
-      require('core.mappings').ufo()
-    end,
-    config = function()
-      require('plugin-configs.ufo')
-    end,
-  },
+  -- { -- Improve folding
+  --   'kevinhwang91/nvim-ufo',
+  --   event = 'VeryLazy',
+  --   dependencies = {
+  --     'kevinhwang91/promise-async',
+  --     {
+  --       'luukvbaal/statuscol.nvim',
+  --       config = function()
+  --         local builtin = require('statuscol.builtin')
+  --         require('statuscol').setup({
+  --           relculright = true,
+  --           segments = {
+  --             { text = { builtin.foldfunc }, click = 'v:lua.ScFa' },
+  --             { text = { '%s' }, click = 'v:lua.ScSa' },
+  --             { text = { builtin.lnumfunc, ' ' }, click = 'v:lua.ScLa' },
+  --           },
+  --         })
+  --       end,
+  --     },
+  --   },
+  --   init = function()
+  --     require('core.mappings').ufo()
+  --   end,
+  --   config = function()
+  --     require('plugin-configs.ufo')
+  --   end,
+  -- },
 
   -- 不错的替换功能
   -- {

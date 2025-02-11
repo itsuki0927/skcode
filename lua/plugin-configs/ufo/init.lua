@@ -1,11 +1,11 @@
 local M = {}
 local ufo = require('ufo')
 
-vim.o.foldcolumn = '1'
-vim.o.foldlevel = 99
-vim.o.foldlevelstart = 99
-vim.o.foldenable = true
-vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+-- vim.o.foldcolumn = '1'
+-- vim.o.foldlevel = 99
+-- vim.o.foldlevelstart = 99
+-- vim.o.foldenable = true
+-- vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 
 -- Provider for a buffer with git or diff filetype (e.g., press dd in vim-flog).
 -- It returns UfoFoldingRange (it is a table of { startLine = lineNum_1, endLine
@@ -80,12 +80,12 @@ local ftMap = {
 }
 
 ufo.setup({
-  close_fold_kinds = { 'imports', 'comment' },
-  provider_selector = function(_, filetype, _)
-    local selector = ftMap[filetype]
-    return selector or { 'treesitter', 'indent' }
-  end,
-  fold_virt_text_handler = handler,
+  -- close_fold_kinds = { 'imports', 'comment' },
+  -- provider_selector = function(_, filetype, _)
+  --   local selector = ftMap[filetype]
+  --   return selector or { 'treesitter', 'indent' }
+  -- end,
+  -- fold_virt_text_handler = handler,
   preview = {
     win_config = {
       border = { '', '─', '', '', '', '─', '', '' },

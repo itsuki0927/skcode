@@ -14,13 +14,13 @@ M.lsp = {
     jsonls = true, -- json
     html = true, -- html
     eslint = true, -- eslint
-    lua_ls = false, -- lua
-    tailwindcss = false, -- tailwindcss
+    lua_ls = true, -- lua
+    tailwindcss = true, -- tailwindcss
     emmet_ls = false, -- emmet
     marksman = false, -- markdown
     volar = false, -- vue3
     rust_analyzer = false, -- rust
-    vuels = false, -- vue2
+    vuels = true, -- vue2
   },
 }
 
