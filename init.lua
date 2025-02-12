@@ -1,5 +1,3 @@
-print('init')
-
 vim.g.base46_cache = vim.fn.stdpath('data') .. '/base46_cache/'
 
 vim.opt.expandtab = true
@@ -96,5 +94,3 @@ map('n', '<leader>td', ':Gitsigns toggle_deleted<CR>')
 -- Text object
 map('o', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
 map('x', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
-
-print(vim.fn.stdpath('data') .. '/base46_cache/')
